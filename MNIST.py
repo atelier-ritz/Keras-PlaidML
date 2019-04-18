@@ -138,10 +138,10 @@ if __name__ == "__main__":
 	x_train, x_test, y_train, y_test = getData()
 
 	# if you don't have a trained model, run this
-	# plotData(x_train, y_train, displayStartIndex=0)
-	# model = createModel()
-	# model = trainModel(model, x_train, y_train, batch_size=100,	epochs=12, verbose=1)
-	# saveModel(model)
+	plotData(x_train, y_train, displayStartIndex=0)
+	model = createModel()
+	model = trainModel(model, x_train, y_train, batch_size=100,	epochs=12, verbose=1)
+	saveModel(model)
 
 	# if you already have a model, run this
 	model = loadModel()
