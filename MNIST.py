@@ -6,6 +6,7 @@
 #  http://opensource.org/licenses/mit-license.php
 #  ----------------------------------------------------------------------------
 #  Version
+#  1.1.0 2019/04/18 Added function to plot learning curves
 #  1.0.0 2019/04/18 First version
 #  ----------------------------------------------------------------------------
 #  [GitHub] : https://github.com/atelier-ritz
@@ -77,6 +78,25 @@ def plotData(X_sample,y_sample,displayStartIndex=0):
 		plt.yticks([])
 	plt.show()
 
+def plotLearningCurve(history):
+	plt.figure()
+	plt.subplot(2, 1, 1)
+	plt.plot(history.history['acc'])
+	plt.title('model accuracy')
+	plt.ylabel('accuracy')
+	plt.xlabel('epoch')
+	plt.legend(['train'], loc='lower right')
+
+	plt.subplot(2, 1, 2)
+	plt.plot(history.history['loss'])
+	plt.title('model loss')
+	plt.ylabel('loss')
+	plt.xlabel('epoch')
+	plt.legend(['train'], loc='upper right')
+
+	plt.tight_layout()
+	plt.show()
+
 def getData():
 	"""
 	x_train, x_test: uint8 array of	grayscale image	data with shape(num_samples, 28, 28).
@@ -117,7 +137,8 @@ def trainModel(model, x_train, y_train, batch_size=100,	epochs=12, verbose=1):
 	# verbose: Integer. 0, 1, or 2. Verbosity mode. 0 = silent, 1 = progress bar, 2 = one line per epoch
 	x_train = preprocessX(x_train)
 	y_train = to_categorical(y_train, NUM_LABELS) # convert to a 60000 by 10 logical matrix
-	model.fit(x_train, y_train,	batch_size,	epochs, verbose)
+	history = model.fit(x_train, y_train,	batch_size,	epochs, verbose)
+	plotLearningCurve(history)
 	return model
 
 def evaluateModel(model, x_test, y_test):
@@ -126,6 +147,7 @@ def evaluateModel(model, x_test, y_test):
 	score = model.evaluate(x_test, y_test)
 	print('Test score:', score[0])
 	print('Test accuracy:', score[1])
+	# plotLearningCurve(score.)
 
 def predict(model,x_predict, startIndex=-1):
 	x_predict_vect = preprocessX(x_predict)
@@ -144,6 +166,6 @@ if __name__ == "__main__":
 	saveModel(model)
 
 	# if you already have a model, run this
-	model = loadModel()
-	evaluateModel(model, x_test, y_test)
-	predict(model,x_test, 10) # here, we try to predict the test samples
+	# model = loadModel()
+	# evaluateModel(model, x_test, y_test)
+	# predict(model,x_test, 10) # here, we try to predict the test samples
