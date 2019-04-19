@@ -1,5 +1,5 @@
 # =============================================================================
-#  MNIST.js
+#  SimpleNeuralNetwork.py
 #  ----------------------------------------------------------------------------
 #  (C)2019 Atelier_Ritz
 #  This software is released under the MIT License.
